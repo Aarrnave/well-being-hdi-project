@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HDI Predictor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1B2D;
+    --surface: #16243A;
+    --surface-2: #1D2E48;
+    --gold: #C9A227;
+    --text: #F1EEE5;
+    --muted: #7E8FA6;
+    --border: #26374F;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 15% 10%, #17263F 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .wrap { width: 100%; max-width: 460px; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 8px;
+  }
+  .sub {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin: 0 0 32px;
+  }
+  form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px 30px;
+  }
+  .field { margin-bottom: 20px; }
+  .field:last-of-type { margin-bottom: 0; }
+  label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  label span.range { color: #55647C; font-size: 11.5px; }
+  input {
+    width: 100%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input:focus { border-color: var(--gold); }
+  input::placeholder { color: #4C5A72; }
+  button {
+    width: 100%;
+    margin-top: 26px;
+    padding: 14px;
+    background: var(--gold);
+    color: #16243A;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  button:hover { filter: brightness(1.08); }
+  .foot {
+    text-align: center;
+    color: #4C5A72;
+    font-size: 12px;
+    margin-top: 20px;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="eyebrow">Development Analytics</span>
+    <h1>Human Development<br>Index Predictor</h1>
+    <p class="sub">Estimate a country's HDI score from four core indicators — health, education, and income — trained on UNDP data across 190+ countries.</p>
+
+    <form action="/dashboard" method="POST">
+      <div class="field">
+        <label>Life Expectancy at Birth <span class="range">years</span></label>
+        <input type="number" step="0.01" name="life_expectancy" placeholder="e.g. 73.5" required>
+      </div>
+      <div class="field">
+        <label>Expected Years of Schooling <span class="range">years</span></label>
+        <input type="number" step="0.01" name="expected_schooling" placeholder="e.g. 13.4" required>
+      </div>
+      <div class="field">
+        <label>Mean Years of Schooling <span class="range">years</span></label>
+        <input type="number" step="0.01" name="mean_schooling" placeholder="e.g. 8.0" required>
+      </div>
+      <div class="field">
+        <label>Gross National Income Per Capita <span class="range">USD, PPP</span></label>
+        <input type="number" step="0.01" name="gni" placeholder="e.g. 15000" required>
+      </div>
+      <button type="submit">Predict HDI Score</button>
+    </form>
+    <p class="foot">Linear Regression Model · R² 0.98</p>
+  </div>
+</body>
+</html>

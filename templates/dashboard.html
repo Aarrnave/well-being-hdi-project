@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HDI Result</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1B2D;
+    --surface: #16243A;
+    --gold: #C9A227;
+    --text: #F1EEE5;
+    --muted: #7E8FA6;
+    --border: #26374F;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 85% 90%, #17263F 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px 32px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 22px;
+  }
+  .gauge-wrap { position: relative; width: 220px; height: 220px; margin: 0 auto 22px; }
+  .gauge-wrap svg { transform: rotate(-90deg); }
+  .gauge-bg { fill: none; stroke: #1D2E48; stroke-width: 14; }
+  .gauge-fg {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 14;
+    stroke-linecap: round;
+    stroke-dasharray: 565.5;
+    stroke-dashoffset: 565.5;
+    animation: fill 1.4s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+  }
+  @keyframes fill { to { stroke-dashoffset: var(--offset); } }
+  .gauge-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .score {
+    font-family: 'Fraunces', serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .score-tag { font-size: 11.5px; color: var(--muted); margin-top: 6px; letter-spacing: 0.04em; }
+  .category {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #1D2E48;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .category .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-right: 8px;
+  }
+  a.again {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 18px;
+  }
+  a.again:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="eyebrow">Prediction Result</span>
+
+    <div class="gauge-wrap">
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <circle class="gauge-bg" cx="110" cy="110" r="90"></circle>
+        <circle class="gauge-fg" cx="110" cy="110" r="90"
+          style="--offset: {{ 565.5 - (565.5 * prediction) }};"></circle>
+      </svg>
+      <div class="gauge-label">
+        <div class="score">{{ prediction }}</div>
+        <div class="score-tag">HDI SCORE</div>
+      </div>
+    </div>
+
+    <div class="category"><span class="dot"></span>{{ category }} Human Development</div>
+
+    <a class="again" href="/">&larr; Run another prediction</a>
+  </div>
+</body>
+</html>
